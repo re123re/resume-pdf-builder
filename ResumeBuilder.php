@@ -1,28 +1,10 @@
 <?php
+
 class ResumeBuilder
 {
-    public static function build(
-        $lastname,
-        $firstname,
-        $patronymic,
-        $imagePath,
-        $salary,
-        $email,
-        $employment,
-        $schedule,
-        $position,
-        $assignment,
-        $phone,
-
-        $city,
-        $crossing,
-        $citizenship,
-        $gender,
-        $birthdate,
-        $maritalStatus
-    )
+    public static function build($user)
     {
-        //ob_start();
+        ob_start();
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetMargins(PDF_MARGIN_LEFT, 15, PDF_MARGIN_RIGHT);
         $pdf->SetFont('dejavusans', '', 12, '', true);
@@ -38,34 +20,80 @@ class ResumeBuilder
         $pdf->setJPEGQuality(90);
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         //$pdf->Image($imagePath, 15, 15, '', '', 'JPG', '', '', false, 150, '', false, false, 1, false, false, false);
-        $pdf->Image($imagePath, 15, 15, '', '', 'JPG', '', '');
+        $pdf->Image($user->mainInfo->imagePath, 15, 15, '', '', 'JPG', '', '');
         // Render main info
-        $html = '<style>p { font-size: 10pt; }</style>'
-            . '<h2>' . $lastname . ' ' . $firstname . ' ' . $patronymic . '</h2>'
-            . '<p><i>' . $position . '</i></p>'
-            . '<p><b>Занятость: </b>' . $employment . '</p>'
-            . '<p><b>График работы: </b>' . $schedule . '</p>'
-            . '<p><b>Готовность к командировкам: </b>' . $assignment . '</p>'
-            . '<p><b>Желаемая зарплата: </b>' . $salary . '</p>'
-            . '<p><b>Телфон: </b>' . $phone . '</p>'
-            . '<p><b>Электронная почта: </b>' . $email . '</p>'
-            . '<p><b>Город проживания: </b>' . $city . '</p>';
-/*echo $html;
-return;*/
+        $educationInfoHtml = ResumeBuilder::buildEducationInfo($user->educationInfo);
+        $html = <<<EOF
+<style>
+p { 
+    font-size: 10pt; 
+}
+.space {
+    padding-top: 5px;
+}
+</style>
+<div class="mainInfo">
+    <h2>{$user->mainInfo->lastname} {$user->mainInfo->firstname} {$user->mainInfo->patronymic}</h2>
+    <p><i>{$user->mainInfo->position}</i></p>
+    <p><b>Занятость: </b>{$user->personalInfo->employment}</p>
+    <p><b>График работы: </b>{$user->personalInfo->schedule}</p>
+    <p><b>Готовность к командировкам: </b>{$user->personalInfo->assignment}</p>
+    <p><b>Желаемая зарплата: </b>{$user->mainInfo->salary}</p>
+    <p><b>Телефон: </b>{$user->personalInfo->phone}</p>
+    <p><b>Электронная почта: </b>{$user->mainInfo->email}</p>
+</div>
+
+<div class="personalInfo">
+    <h2>Личная информация</h2>
+    <p><b>Гражданство: </b>{$user->personalInfo->citizenship}</p>
+    <p><b>Город проживания: </b>{$user->personalInfo->city}</p>
+    <p><b>Переезд: </b>{$user->personalInfo->crossing}</p>
+    <p><b>Пол: </b>{$user->personalInfo->gender}</p>
+    <p><b>Дата рождения: </b>{$user->personalInfo->birthdate}</p>
+    <p><b>Семейное положение: </b>{$user->personalInfo->maritalStatus}</p>
+</div>
+
+<div class="educationInfo">
+    <h2>Образование</h2>
+    {$educationInfoHtml}
+</div>
+EOF;
         $regions = array(
             array(
                 'page' => '',
-                'xt' =>  100,
+                'xt' => 90,
                 'yt' => 0,
-                'xb' =>  100,
-                'yb' => 80,
+                'xb' => 90,
+                'yb' => 90,
                 'side' => 'L')
         );
         $pdf->setPageRegions($regions);
         $pdf->writeHTML($html, true, false, true, false, '');
 
-        $fileName = Utils::Transliterate($lastname . '_' . $firstname . '_' . $patronymic . '.pdf');
-        ob_end_clean();
+        $fileName = Utils::Transliterate($user->mainInfo->lastname . ' ' . $user->mainInfo->firstname . ' ' . $user->mainInfo->patronymic . '.pdf');
         $pdf->Output($fileName, 'I');
+        ob_end_flush();
+    }
+
+    static function buildEducationInfo($educationInfos)
+    {
+        $html = '';
+        for ($i = 0; $i < count($educationInfos); $i++) {
+            $html .= <<<EOF
+<div id="educationGroup-{$i}">
+    <p><b>Учебное заведение: </b>{$educationInfos[$i]->institute}</p>
+    <p><b>Факультет: </b>{$educationInfos[$i]->faculty}</p>
+    <p><b>Специальность: </b>{$educationInfos[$i]->speciality}</p>
+    <p><b>Год начала: </b>{$educationInfos[$i]->dateFrom}</p>
+    <p><b>Год окончания: </b>{$educationInfos[$i]->dateTo}</p>
+</div>
+EOF;
+        }
+        return $html;
+    }
+
+    static function valueOrDefault($value, $default)
+    {
+        return (isset($value) && $value !== '') ? $value : $default;
     }
 }
