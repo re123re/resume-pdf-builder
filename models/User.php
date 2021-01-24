@@ -8,10 +8,11 @@ class User {
     // array
     public $experienceInfo;
 
-    function __construct($main, $personal, $edu) {
+    function __construct($main, $personal, $edu, $exp) {
         $this->mainInfo = $main;
         $this->personalInfo = $personal;
         $this->educationInfo = $edu;
+        $this->experienceInfo = $exp;
     }
 }
 
@@ -83,6 +84,14 @@ class UserExperienceInfo {
     public $position;
     public $organization;
     public $duties;
+
+    function __construct($dateFrom, $dateTo, $position, $organization, $duties) {
+        $this->dateFrom = $dateFrom;
+        $this->dateTo = $dateTo;
+        $this->position = $position;
+        $this->organization = $organization;
+        $this->duties = $duties;
+    }
 }
 
 ?>

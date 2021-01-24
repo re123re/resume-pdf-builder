@@ -3,13 +3,23 @@
 <head>
     <title>Тестовая страница</title>
     <meta charset="utf-8">
+    <script type="text/javascript" src="vendor/components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script>
+
+        window.onload = function () {
+            document.getElementById("addEducationGroup").onclick = () => onAddEducationGroup();
+            document.getElementById("addExperienceGroup").onclick = () => onAddExperienceGroup();
+        }
+
+    </script>
 </head>
 <body>
 <h1>Страница для проверки результата построения файла резюме</h1>
 <h3>Все поля уже заполнены</h3>
 <form action="display.php" method="POST" enctype="multipart/form-data">
     <!-- MAIN INFO -->
-    <div class="mainInfo">
+    <div id="mainInfo">
         <h5 class="card-title">Основная информация</h5>
         <p>Имя: <input type="text" name="firstname" value="Петр"/></p>
         <p>Фамилия: <input type="text" name="lastname" value="Иванов"/></p>
@@ -52,7 +62,7 @@
     <!-- MAIN INFO -->
 
     <!-- PERSONAL INFO -->
-    <div class="personalInfo">
+    <div id="personalInfo">
         <h5 class="card-title">Личная информация</h5>
         <p>Город проживания: <input type="text" name="city" value="Москва"/></p>
         <p>Переезд:
@@ -84,7 +94,7 @@
     <!-- PERSONAL INFO -->
 
     <!-- EDUCATION INFO -->
-    <div class="educationInfo">
+    <div id="educationInfo">
         <h5 class="card-title">Образование</h5>
         <div class="educationGroup-0">
             <p>Учебное заведение: <input type="text" name="eg-0-institute" value="МГУ" /></p>
@@ -93,12 +103,23 @@
             <p>Дата начала: <input type="number" name="eg-0-dateFrom" value="2004" /></p>
             <p>Дата окончания: <input type="number" name="eg-0-dateTo" value="2009" /></p>
         </div>
-        <button>Добавить учебное заведение</button>
-        <input type="hidden" value="1" name="educationGroupsNum" />
+        <button type="button" id="addEducationGroup">Добавить учебное заведение</button>
+        <input type="hidden" value="1" id="educationGroupsNum" name="educationGroupsNum" />
     </div>
     <!-- EDUCATION INFO -->
 
     <!-- EXPERIENCE INFO -->
+    <div id="experienceInfo">
+        <h5 class="card-title">Опыт работы</h5>
+        <div class="$experienceGroup-0">
+            <p>Период работы: <input type="date" name="xg-0-dateFrom" value="2010" /> по <input type="date" name="xg-0-dateTo" value="2015" /></p>
+            <p>Должность: <input type="text" name="xg-0-position" value="Инженер" /></p>
+            <p>Организация: <input type="text" name="xg-0-organization" value="АО 'Кек'" /></p>
+            <p>Должностные обязанности и достижения: <input type="text" name="xg-0-duties" value="" /></p>
+        </div>
+        <button type="button" id="addExperienceGroup">Добавить место работы</button>
+        <input type="hidden" value="1" name="experienceGroupNum" />
+    </div>
     <!-- EXPERIENCE INFO -->
     <p><input type="submit" value="Составить резюме"/></p>
 </form>

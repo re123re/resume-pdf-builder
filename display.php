@@ -39,6 +39,18 @@ function getUserModel() :User {
         array_push($educationInfos, $edu);
     }
 
+    $experienceInfos = [];
+    for ($i = 0; $i < $_POST["experienceGroupNum"]; $i++) {
+        $exp = new UserExperienceInfo(
+            $_POST["xg-". $i . "-dateFrom"],
+            $_POST["xg-". $i . "-dateTo"],
+            $_POST["xg-". $i . "-position"],
+            $_POST["xg-". $i . "-organization"],
+            $_POST["xg-". $i . "-duties"]
+        );
+        array_push($experienceInfos, $exp);
+    }
+
     return new User(
         new UserMainInfo(
             $_POST["firstname"],
@@ -60,7 +72,8 @@ function getUserModel() :User {
             $_POST["gender"],
             $_POST["birthdate"],
             $_POST["maritalStatus"]),
-        $educationInfos
+        $educationInfos,
+        $experienceInfos,
     );
 }
 
