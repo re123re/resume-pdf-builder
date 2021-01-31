@@ -4,9 +4,13 @@ require_once 'Utils.php';
 require_once 'SimpleImage.php';
 require_once 'vendor/tecnickcom/tcpdf/tcpdf_import.php';
 require_once 'models/User.php';
+require_once 'UserInfoLogger.php';
 
-$user = getUserModel();
+$user = createUserModel();
+// TODO: try - catch - finally
 ResumeBuilder::build($user);
+$logger = new UserInfoLogger();
+$logger->Log($user);
 
 // Load user photo to disk
 // TODO: Allow PNG, WEBM
@@ -24,11 +28,11 @@ function processPhoto(): string
     return $imagePath;
 }
 
-function getUserModel() :User {
+function createUserModel() :User {
     $imagePath = is_uploaded_file($_FILES['photo']['tmp_name']) ? processPhoto() : 'resources' . DIRECTORY_SEPARATOR . 'profile.jpg';
 
     $educationInfos = [];
-    for ($i = 0; $i < $_POST["educationGroupsNum"]; $i++) {
+    for ($i = 0; $i < $_POST["educationGroupNum"]; $i++) {
         $edu = new UserEducationInfo(
             $_POST["eg-". $i . "-institute"],
             $_POST["eg-". $i . "-faculty"],
@@ -76,5 +80,3 @@ function getUserModel() :User {
         $experienceInfos,
     );
 }
-
-// TODO: Do logging to database

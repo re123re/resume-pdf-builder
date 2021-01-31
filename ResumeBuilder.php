@@ -80,7 +80,7 @@ EOF;
         ob_end_flush();
     }
 
-    static function buildEducationInfo($educationInfos)
+    static function buildEducationInfo($educationInfos) : string
     {
         $html = '';
         for ($i = 0; $i < count($educationInfos); $i++) {
@@ -91,11 +91,14 @@ EOF;
     <p><b>Год начала: </b>{$educationInfos[$i]->dateFrom}</p>
     <p><b>Год окончания: </b>{$educationInfos[$i]->dateTo}</p>
 EOF;
+            if ($i >= 0 && $i < count($educationInfos) - 1) {
+                $html .= '<hr>';
+            }
         }
         return $html;
     }
 
-    static function buildExperienceInfo($experienceInfos)
+    static function buildExperienceInfo($experienceInfos) : string
     {
         $html = '';
         for ($i = 0; $i < count($experienceInfos); $i++) {
@@ -105,12 +108,11 @@ EOF;
     <p><b>Организация: </b>{$experienceInfos[$i]->organization}</p>
     <p><b>Должностные обязанности и достижения: </b>{$experienceInfos[$i]->duties}</p>
 EOF;
+
+            if ($i >= 0 && $i < count($experienceInfos) - 1) {
+                $html .= '<hr>';
+            }
         }
         return $html;
-    }
-
-    static function valueOrDefault($value, $default)
-    {
-        return (isset($value) && $value !== '') ? $value : $default;
     }
 }
