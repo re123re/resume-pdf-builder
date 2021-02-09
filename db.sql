@@ -51,6 +51,7 @@ create table user_info(
                           personal_info_id bigint,
                           education_info_id bigint,
                           experience_info_id bigint,
+                          generate_date datetime,
                           PRIMARY KEY (id),
                           FOREIGN KEY (main_info_id)  	   REFERENCES main_info (id),
                           FOREIGN KEY (personal_info_id)   REFERENCES personal_info (id),

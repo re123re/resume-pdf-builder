@@ -51,7 +51,7 @@ values (
 EOF);
         $id = $db->insert_id;
         if ($id == 0) {
-            throw new Exception("Error");
+            throw new Exception($db->error);
         }
 
         return $id;
@@ -87,7 +87,7 @@ values (
 EOF);
         $id = $db->insert_id;
         if ($id == 0) {
-            throw new Exception("Error");
+            throw new Exception($db->error);
         }
 
         return $id;
@@ -114,7 +114,7 @@ values (
 EOF);
             $id = $db->insert_id;
             if ($id == 0) {
-                throw new Exception("Error");
+                throw new Exception($db->error);
             }
 
             $educationInfoIds[$i] = $id;
@@ -148,7 +148,7 @@ values (
 EOF);
             $id = $db->insert_id;
             if ($id == 0) {
-                throw new Exception("Error");
+                throw new Exception($db->error);
             }
 
             $experienceInfoIds[$i] = $id;
@@ -175,17 +175,19 @@ insert into user_info (
     main_info_id,
     personal_info_id,
     education_info_id,
-    experience_info_id)
+    experience_info_id,
+    generate_date)
 values (
     {$mainInfoId},
     {$personalInfoId},
     {$edu},
-    {$exp}
+    {$exp},
+    NOW()
 );
 EOF);
                 $id = $db->insert_id;
                 if ($id == 0) {
-                    throw new Exception("Error");
+                    throw new Exception($db->error);
                 }
             }
         }

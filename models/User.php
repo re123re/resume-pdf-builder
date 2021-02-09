@@ -7,6 +7,7 @@ class User {
     public $educationInfo;
     // array
     public $experienceInfo;
+    public $generateDate;
 
     function __construct($main, $personal, $edu, $exp) {
         $this->mainInfo = $main;
