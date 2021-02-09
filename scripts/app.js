@@ -5,11 +5,11 @@ function onAddEducationGroup() {
     educationGroupButton.before(`
         <hr>
         <div class="educationGroup-${num}">
-            <p>Учебное заведение: <input type="text" name="eg-${num}-institute" value="МГУ" /></p>
-            <p>Факультет: <input type="text" name="eg-${num}-faculty" value="Информационных технологий" /></p>
-            <p>Специальность: <input type="text" name="eg-${num}-speciality" value="Монтаж слаботочных систем" /></p>
-            <p>Дата начала: <input type="number" name="eg-${num}-dateFrom" value="2004" /></p>
-            <p>Дата окончания: <input type="number" name="eg-${num}-dateTo" value="2009" /></p>
+            <p>Учебное заведение: <input class="form-control" type="text" name="eg-${num}-institute" value="МГУ" maxlength="30"/></p>
+            <p>Факультет: <input class="form-control" type="text" name="eg-${num}-faculty" value="Информационных технологий" maxlength="30"/></p>
+            <p>Специальность: <input class="form-control" type="text" name="eg-${num}-speciality" value="Монтаж слаботочных систем" maxlength="30"/></p>
+            <p>Дата начала: <input class="form-control" type="number" name="eg-${num}-dateFrom" value="2004" maxlength="4"/></p>
+            <p>Дата окончания: <input class="form-control" type="number" name="eg-${num}-dateTo" value="2009" maxlength="4"/></p>
         </div>`);
     $('#educationGroupNum')[0].value++;
 };
@@ -21,10 +21,14 @@ function onAddExperienceGroup() {
     experienceGroupButton.before(`
         <hr>
         <div class="experienceGroup-${num}">
-           <p>Период работы: <input type="date" name="xg-${num}-dateFrom" value="2010" /> по <input type="date" name="xg-${num}-dateTo" value="2015" /></p>
-            <p>Должность: <input type="text" name="xg-${num}-position" value="Инженер" /></p>
-            <p>Организация: <input type="text" name="xg-${num}-organization" value="АО 'Кек'" /></p>
-            <p>Должностные обязанности и достижения: <input type="text" name="xg-${num}-duties" value="" /></p>
+           <p>Период работы: <input class="form-control" type="date" name="xg-${num}-dateFrom" value="2010"/> по <input class="form-control" type="date" name="xg-${num}-dateTo" value="2015"/></p>
+            <p>Должность: <input class="form-control" type="text" name="xg-${num}-position" value="Инженер" maxlength="30"/></p>
+            <p>Организация: <input class="form-control" type="text" name="xg-${num}-organization" value="АО 'Кек'" maxlength="30"/></p>
+            <p>Должностные обязанности и достижения: <textarea class="form-control" type="text" name="xg-${num}-duties" value="" maxlength="400"></textarea></p>
         </div>`);
     $('#experienceGroupNum')[0].value++;
+};
+
+function initInputMasks() {
+    Inputmask({"mask": "+7 (999) 999-9999"}).mask($("#phone")[0]);
 };

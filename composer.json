@@ -3,6 +3,7 @@
         "tecnickcom/tcpdf": "^6.3",
         "twbs/bootstrap": "4.0.0",
         "components/jquery": "^3.5",
-        "ext-mysqli": "*"
+        "ext-mysqli": "*",
+        "robinherbots/jquery.inputmask": "^5.0"
     }
 }
