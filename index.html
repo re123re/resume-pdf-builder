@@ -6,9 +6,15 @@
     <script type="text/javascript" src="vendor/components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="vendor/robinherbots/jquery.inputmask/dist/inputmask.min.js"></script>
     <script type="text/javascript" src="vendor/twbs/bootstrap/min/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="node_modules/croppie/croppie.min.js"></script>
     <link rel="stylesheet" href="vendor/twbs/bootstrap/min/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/croppie/croppie.css"/>
     <script type="text/javascript" src="scripts/app.js"></script>
     <script type="module">
+        // https://codepen.io/cromartie/pen/mWoovd
+        $('#photo').croppie();
+
+
         document.getElementById("educationGroupNum").value = 1;
         document.getElementById("experienceGroupNum").value = 1;
 
@@ -33,15 +39,25 @@
         <div class="card" id="mainInfo">
             <div class="card-body">
                 <h5 class="card-title">Основная информация</h5>
-                <p>Имя: <input class="form-control" type="text" name="firstname" maxlength="20" required/></p>
-                <p>Фамилия: <input class="form-control" type="text" name="lastname" maxlength="20" required/></p>
-                <p>Отчество: <input class="form-control" type="text" name="patronymic" maxlength="20" required/></p>
-                <!-- TODO: Allow PNG, WEBP -->
-                <p>Личная фотография: <input class="form-control" type="file" name="photo" accept="image/jpeg"/></p>
+                <div class="row">
+                    <div class="col-5">
+                        <!-- TODO: Allow PNG, WEBP -->
+                        <img id="photo" src="resources/profile.jpg"/>
+                        <p>Личная фотография: <input class="form-control" type="file" name="photo" accept="image/jpeg"/></p>
+                    </div>
+                    <div class="col-7">
+                        <p>Имя: <input class="form-control" type="text" name="firstname" maxlength="20" required/></p>
+                        <p>Фамилия: <input class="form-control" type="text" name="lastname" maxlength="20" required/>
+                        </p>
+                        <p>Отчество: <input class="form-control" type="text" name="patronymic" maxlength="20" required/>
+                        </p>
+                    </div>
+                </div>
 
-                <p>Желаемая зарплата: <input class="form-control" type="text" name="salary" maxlength="20" placeholder="40 000"/></p>
+                <p>Желаемая зарплата: <input class="form-control" type="text" name="salary" maxlength="20"
+                                             placeholder="40 000"/></p>
                 <p>Электронная почта: <input class="form-control" type="email" type="text" name="email" maxlength="40"
-                                                           placeholder="name@example.com"/></p>
+                                             placeholder="name@example.com"/></p>
                 <p>Занятость:
                     <select class="form-control" name="employment" selected="1" required>
                         <option>Выбор..</option>
@@ -62,7 +78,8 @@
                         <option>Вахтовый метод</option>
                     </select>
                 </p>
-                <p>Должность: <input class="form-control" type="text" name="position" placeholder="Механик" maxlength="30" required/></p>
+                <p>Должность: <input class="form-control" type="text" name="position" placeholder="Механик"
+                                     maxlength="30" required/></p>
                 <p>Готовность к командировкам:
                     <select class="form-control" name="assignment" selected="Готов" required>
                         <option>Выбор...</option>
@@ -80,7 +97,8 @@
         <div class="card" id="personalInfo">
             <div class="card-body">
                 <h5 class="card-title">Личная информация</h5>
-                <p>Город проживания: <input class="form-control" type="text" name="city" maxlength="30" value="Москва"/></p>
+                <p>Город проживания: <input class="form-control" type="text" name="city" maxlength="50" value="Москва"/>
+                </p>
                 <p>Переезд:
                     <select class="form-control" name="crossing" selected="Возможен">
                         <option>Выбор..</option>
@@ -90,7 +108,7 @@
                         <option>Желателен</option>
                     </select>
                 </p>
-                <p>Гражданство: <input class="form-control" type="text" maxlength="30" name="citizenship"
+                <p>Гражданство: <input class="form-control" type="text" maxlength="50" name="citizenship"
                                        value="Российская Федерация"/>
                 </p>
                 <p>Пол:
@@ -117,14 +135,17 @@
             <div class="card-body">
                 <h5 class="card-title">Образование</h5>
                 <div class="educationGroup-0">
-                    <p>Учебное заведение: <input class="form-control" type="text" maxlength="50" name="eg-0-institute" value="МГУ"/>
+                    <p>Учебное заведение: <input class="form-control" type="text" maxlength="100" name="eg-0-institute"
+                                                 value="МГУ"/>
                     </p>
-                    <p>Факультет: <input class="form-control" type="text" maxlength="30" name="eg-0-faculty"
+                    <p>Факультет: <input class="form-control" type="text" maxlength="100" name="eg-0-faculty"
                                          value="Информационных технологий"/></p>
-                    <p>Специальность: <input class="form-control" type="text" maxlength="30" name="eg-0-speciality"
+                    <p>Специальность: <input class="form-control" type="text" maxlength="100" name="eg-0-speciality"
                                              value="Монтаж слаботочных систем"/></p>
-                    <p>Дата начала: <input class="form-control" type="number" name="eg-0-dateFrom" value="2004" maxlength="4"/></p>
-                    <p>Дата окончания: <input class="form-control" type="number" name="eg-0-dateTo" value="2009" maxlength="4"/></p>
+                    <p>Дата начала: <input class="form-control" type="number" name="eg-0-dateFrom" value="2004"
+                                           maxlength="4"/></p>
+                    <p>Дата окончания: <input class="form-control" type="number" name="eg-0-dateTo" value="2009"
+                                              maxlength="4"/></p>
                 </div>
                 <button class="btn btn-secondary" type="button" id="addEducationGroup">Добавить учебное заведение
                 </button>
@@ -140,8 +161,10 @@
                 <div class="$experienceGroup-0">
                     <p>Период работы: <input class="form-control" type="date" name="xg-0-dateFrom" value="2010"/> по
                         <input class="form-control" type="date" name="xg-0-dateTo" value="2015"/></p>
-                    <p>Должность: <input class="form-control" type="text" maxlength="30" name="xg-0-position" value="Инженер"/></p>
-                    <p>Организация: <input class="form-control" type="text" maxlength="30" name="xg-0-organization" value="АО 'Кек'"/>
+                    <p>Должность: <input class="form-control" type="text" maxlength="50" name="xg-0-position"
+                                         value="Инженер"/></p>
+                    <p>Организация: <input class="form-control" type="text" maxlength="100" name="xg-0-organization"
+                                           value="АО 'Кек'"/>
                     </p>
                     <p>Должностные обязанности и достижения: <textarea class="form-control" maxlength="400" type="text"
                                                                        name="xg-0-duties"

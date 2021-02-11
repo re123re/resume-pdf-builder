@@ -100,13 +100,15 @@ EOF;
 
     static function buildExperienceInfo($experienceInfos) : string
     {
+        //htmlspecialchars
         $html = '';
         for ($i = 0; $i < count($experienceInfos); $i++) {
+            $duties = nl2br($experienceInfos[$i]->duties);
             $html .= <<<EOF
     <p><b>Период: </b>с {$experienceInfos[$i]->dateFrom} по {$experienceInfos[$i]->dateTo}</p>
     <p><b>Должность: </b>{$experienceInfos[$i]->position}</p>
     <p><b>Организация: </b>{$experienceInfos[$i]->organization}</p>
-    <p><b>Должностные обязанности и достижения: </b>{$experienceInfos[$i]->duties}</p>
+    <p><b>Должностные обязанности и достижения: </b><br />{$duties}</p>
 EOF;
 
             if ($i >= 0 && $i < count($experienceInfos) - 1) {
