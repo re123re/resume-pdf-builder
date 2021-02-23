@@ -32,6 +32,12 @@ class UserInfoLogger
     }
 
     function InsertMainInfo($db, $mainInfo) : int {
+        $firstName = mysqli_escape_string($mainInfo->firstname);
+        $lastname = mysqli_escape_string($mainInfo->lastname);
+        $patronymic= mysqli_escape_string($mainInfo->patronymic);
+        $imagePath = mysqli_escape_string($mainInfo->imagePath);
+        $salary = mysqli_escape_string($mainInfo->salary) ?? "";
+        $email = mysqli_escape_string($mainInfo->email) ?? "";
         $db->query(<<<EOF
 insert into main_info (
     firstname,
@@ -41,12 +47,12 @@ insert into main_info (
     salary,
     email) 
 values (
-    '{$mainInfo->firstname}',
-    '{$mainInfo->lastname}',
-    '{$mainInfo->patronymic}',
-    '{$mainInfo->imagePath}',
-     {$mainInfo->salary},
-    '{$mainInfo->email}'
+    '{$firstName}',
+    '{$lastname}',
+    '{$patronymic}',
+    '{$imagePath}',
+    '{$salary}',
+    '{$email}'
 );
 EOF);
         $id = $db->insert_id;

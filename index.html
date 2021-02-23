@@ -9,27 +9,8 @@
     <script type="text/javascript" src="node_modules/croppie/croppie.min.js"></script>
     <link rel="stylesheet" href="vendor/twbs/bootstrap/min/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/croppie/croppie.css"/>
+    <link rel="stylesheet" href="styles/app.css"/>
     <script type="text/javascript" src="scripts/app.js"></script>
-    <script type="module">
-        // https://codepen.io/cromartie/pen/mWoovd
-        $('#photo').croppie();
-
-
-        document.getElementById("educationGroupNum").value = 1;
-        document.getElementById("experienceGroupNum").value = 1;
-
-        document.getElementById("addEducationGroup").onclick = () => onAddEducationGroup();
-        document.getElementById("addExperienceGroup").onclick = () => onAddExperienceGroup();
-
-        initInputMasks();
-        /*window.onload = function () {
-            document.getElementById("educationGroupNum").value = 1;
-            document.getElementById("experienceGroupNum").value = 1;
-
-            document.getElementById("addEducationGroup").onclick = () => onAddEducationGroup();
-            document.getElementById("addExperienceGroup").onclick = () => onAddExperienceGroup();
-        }*/
-    </script>
 </head>
 <body>
 
@@ -40,12 +21,42 @@
             <div class="card-body">
                 <h5 class="card-title">Основная информация</h5>
                 <div class="row">
-                    <div class="col-5">
-                        <!-- TODO: Allow PNG, WEBP -->
-                        <img id="photo" src="resources/profile.jpg"/>
-                        <p>Личная фотография: <input class="form-control" type="file" name="photo" accept="image/jpeg"/></p>
+                    <div class="col-3">
+                        <img id="photo" class="user-photo" src="resources/profile.jpg"/>
+                        <input type="hidden" name="photo" class="user-photo-input" />
+
+                        <!-- Button trigger modal -->
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary select-photo" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                Выбрать фото
+                            </button>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--<div class="upload-msg">
+                                            Upload a file to start cropping
+                                        </div>-->
+                                        <div class="upload-demo-wrap">
+                                            <div class="upload-demo"></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="upload" type="file" accept="image/jpeg"/>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                        <button type="button" class="btn btn-primary apply" data-dismiss="modal">Сохранить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-7">
+                    <div class="col-9">
                         <p>Имя: <input class="form-control" type="text" name="firstname" maxlength="20" required/></p>
                         <p>Фамилия: <input class="form-control" type="text" name="lastname" maxlength="20" required/>
                         </p>
@@ -87,8 +98,16 @@
                         <option>Не готов</option>
                     </select>
                 </p>
-                <p>Телефон: <input class="form-control" type="text" id="phone" name="phone"
-                                   placeholder="+7 (999) 99-99-99" required/></p>
+                <label for="phone">Телефон</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="validationTooltipUsernamePrepend">+7</span>
+                    </div>
+                    <input class="form-control" type="text" id="phone" name="phone" placeholder="(999) 99-99-99" required />
+                    <div class="invalid-tooltip">
+                        Please choose a unique and valid username.
+                    </div>
+                </div>
             </div>
         </div>
         <!-- MAIN INFO -->
@@ -135,6 +154,7 @@
             <div class="card-body">
                 <h5 class="card-title">Образование</h5>
                 <div class="educationGroup-0">
+
                     <p>Учебное заведение: <input class="form-control" type="text" maxlength="100" name="eg-0-institute"
                                                  value="МГУ"/>
                     </p>

@@ -28,11 +28,39 @@ function processPhoto(): string
     return $imagePath;
 }
 
+function base64_to_jpeg($base64_string, $output_file) {
+    // open the output file for writing
+    $ifp = fopen( $output_file, 'wb' );
+
+    // split the string on commas
+    // $data[ 0 ] == "data:image/png;base64"
+    // $data[ 1 ] == <actual base64 string>
+    $data = explode( ',', $base64_string );
+
+    // we could add validation here with ensuring count( $data ) > 1
+    fwrite( $ifp, base64_decode( $data[ 1 ] ) );
+
+    // clean up the file resource
+    fclose( $ifp );
+
+    return $output_file;
+}
+
 function createUserModel() :User {
-    $imagePath = is_uploaded_file($_FILES['photo']['tmp_name']) ? processPhoto() : 'resources' . DIRECTORY_SEPARATOR . 'profile.jpg';
+    //$imagePath = is_uploaded_file($_FILES['photo']['tmp_name']) ? processPhoto() : 'resources' . DIRECTORY_SEPARATOR . 'profile.jpg';
+
+    $upload_dir = 'uploads' . DIRECTORY_SEPARATOR;
+    $fileGuid = Utils::GUIDv4();
+    $imagePath = $upload_dir . $fileGuid . '.jpg';
+    base64_to_jpeg($_POST['photo'], $imagePath);
+
 
     $educationInfos = [];
     for ($i = 0; $i < $_POST["educationGroupNum"]; $i++) {
+        // TODO: Костыль
+        if (!isset($_POST["eg-". $i . "-institute"])) {
+            continue;
+        }
         $edu = new UserEducationInfo(
             $_POST["eg-". $i . "-institute"],
             $_POST["eg-". $i . "-faculty"],
@@ -45,6 +73,10 @@ function createUserModel() :User {
 
     $experienceInfos = [];
     for ($i = 0; $i < $_POST["experienceGroupNum"]; $i++) {
+        // TODO: Костыль
+        if (!isset($_POST["xg-". $i . "-dateFrom"])) {
+            continue;
+        }
         $exp = new UserExperienceInfo(
             $_POST["xg-". $i . "-dateFrom"],
             $_POST["xg-". $i . "-dateTo"],
