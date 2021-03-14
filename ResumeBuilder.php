@@ -19,7 +19,7 @@ class ResumeBuilder
         // Render photo
         $pdf->setJPEGQuality(90);
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        $pdf->Image($user->mainInfo->imagePath, 15, 15, '', '', 'JPG', '', '');
+        //$pdf->Image($user->mainInfo->imagePath, 15, 15, '', '', 'JPG', '', '');
         // Render main info
         $educationInfoHtml = ResumeBuilder::buildEducationInfo($user->educationInfo);
         $experienceInfoHtml = ResumeBuilder::buildExperienceInfo($user->experienceInfo);
@@ -28,22 +28,26 @@ class ResumeBuilder
 p { 
     font-size: 10pt; 
 }
-.space {
-    padding-top: 5px;
-}
-</style>
-<div class="mainInfo">
-    <h2>{$user->mainInfo->lastname} {$user->mainInfo->firstname} {$user->mainInfo->patronymic}</h2>
-    <p><i>{$user->personalInfo->position}</i></p>
-    <p><b>Занятость: </b>{$user->personalInfo->employment}</p>
-    <p><b>График работы: </b>{$user->personalInfo->schedule}</p>
-    <p><b>Готовность к командировкам: </b>{$user->personalInfo->assignment}</p>
-    <p><b>Желаемая зарплата: </b>{$user->mainInfo->salary}</p>
-    <p><b>Телефон: </b>{$user->personalInfo->phone}</p>
-    <p><b>Электронная почта: </b>{$user->mainInfo->email}</p>
-</div>
 
-<div class="personalInfo">
+</style>
+<table style="border: none;">
+    <tr>
+       <td style="width: 300px">
+            <img src="{$user->mainInfo->imagePath}">
+       </td>
+       <td>
+           {$user->mainInfo->lastname} {$user->mainInfo->firstname} {$user->mainInfo->patronymic}
+            <p><i>{$user->personalInfo->position}</i></p>
+            <p><b>Занятость: </b>{$user->personalInfo->employment}</p>
+            <p><b>График работы: </b>{$user->personalInfo->schedule}</p>
+            <p><b>Готовность к командировкам: </b>{$user->personalInfo->assignment}</p>
+            <p><b>Желаемая зарплата: </b>{$user->mainInfo->salary}</p>
+            <p><b>Телефон: </b>{$user->personalInfo->phone}</p>
+            <p><b>Электронная почта: </b>{$user->mainInfo->email}</p>
+       </td>
+    </tr>
+</table>
+
     <h2>Личная информация</h2>
     <p><b>Гражданство: </b>{$user->personalInfo->citizenship}</p>
     <p><b>Город проживания: </b>{$user->personalInfo->city}</p>
@@ -51,17 +55,12 @@ p {
     <p><b>Пол: </b>{$user->personalInfo->gender}</p>
     <p><b>Дата рождения: </b>{$user->personalInfo->birthdate}</p>
     <p><b>Семейное положение: </b>{$user->personalInfo->maritalStatus}</p>
-</div>
 
-<div class="educationInfo">
     <h2>Образование</h2>
     {$educationInfoHtml}
-</div>
 
-<div class="experienceInfo">
     <h2>Опыт работы</h2>
     {$experienceInfoHtml}
-</div>
 EOF;
         $regions = array(
             array(
@@ -72,7 +71,7 @@ EOF;
                 'yb' => 90,
                 'side' => 'L')
         );
-        $pdf->setPageRegions($regions);
+        //$pdf->setPageRegions($regions);
         $pdf->writeHTML($html, true, false, true, false, '');
 
         $fileName = Utils::Transliterate($user->mainInfo->lastname . ' ' . $user->mainInfo->firstname . ' ' . $user->mainInfo->patronymic . '.pdf');

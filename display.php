@@ -38,7 +38,7 @@ function base64_to_jpeg($base64_string, $output_file) {
     $data = explode( ',', $base64_string );
 
     // we could add validation here with ensuring count( $data ) > 1
-    fwrite( $ifp, base64_decode( $data[ 1 ] ) );
+    fwrite($ifp, base64_decode($data[1]));
 
     // clean up the file resource
     fclose( $ifp );
@@ -48,12 +48,15 @@ function base64_to_jpeg($base64_string, $output_file) {
 
 function createUserModel() :User {
     //$imagePath = is_uploaded_file($_FILES['photo']['tmp_name']) ? processPhoto() : 'resources' . DIRECTORY_SEPARATOR . 'profile.jpg';
-
-    $upload_dir = 'uploads' . DIRECTORY_SEPARATOR;
-    $fileGuid = Utils::GUIDv4();
-    $imagePath = $upload_dir . $fileGuid . '.jpg';
-    base64_to_jpeg($_POST['photo'], $imagePath);
-
+    $imagePath = '';
+    if ($_POST["photo"] === '') {
+        $imagePath = 'resources/profile.jpg';
+    } else {
+        $upload_dir = 'uploads' . DIRECTORY_SEPARATOR;
+        $fileGuid = Utils::GUIDv4();
+        $imagePath = $upload_dir . $fileGuid . '.jpg';
+        base64_to_jpeg($_POST['photo'], $imagePath);
+    }
 
     $educationInfos = [];
     for ($i = 0; $i < $_POST["educationGroupNum"]; $i++) {
