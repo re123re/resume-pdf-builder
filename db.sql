@@ -45,18 +45,40 @@ create table experience_info(
                                 PRIMARY KEY (id)
 );
 
+create table courses_info(
+                               id bigint NOT NULL AUTO_INCREMENT,
+                               training char(80),
+                               organizationCoach char(80),
+                               completion char(50),
+                               duration char(50),
+                               PRIMARY KEY (id)
+);
+
+create table addon_info(
+                               id bigint NOT NULL AUTO_INCREMENT,
+                               languages char(80),
+                               drive char(80),
+                               skills char(200),
+                               personalQualities text,
+                               PRIMARY KEY (id)
+);
+
 create table user_info(
                           id bigint NOT NULL AUTO_INCREMENT,
                           main_info_id bigint,
                           personal_info_id bigint,
                           education_info_id bigint,
                           experience_info_id bigint,
+						  courses_info_id bigint, 
+						  addon_info_id bigint, 
                           generate_date datetime,
                           PRIMARY KEY (id),
                           FOREIGN KEY (main_info_id)  	   REFERENCES main_info (id),
                           FOREIGN KEY (personal_info_id)   REFERENCES personal_info (id),
                           FOREIGN KEY (education_info_id)  REFERENCES education_info (id),
-                          FOREIGN KEY (experience_info_id) REFERENCES experience_info (id)
+                          FOREIGN KEY (experience_info_id) REFERENCES experience_info (id),
+						  FOREIGN KEY (courses_info_id)    REFERENCES courses_info (id),
+						  FOREIGN KEY (addon_info_id)      REFERENCES addon_info (id)
 );
 
 TRUNCATE user_info;
@@ -64,6 +86,8 @@ TRUNCATE main_info;
 TRUNCATE personal_info;
 TRUNCATE education_info;
 TRUNCATE experience_info;
+TRUNCATE courses_info;
+TRUNCATE addon_info;
 
 
 drop table user_info;
@@ -71,3 +95,5 @@ drop table  main_info;
 drop table  personal_info;
 drop table  education_info;
 drop table  experience_info;
+drop table  courses_info;
+drop table  addon_info;
