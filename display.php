@@ -90,12 +90,28 @@ function createUserModel() :User {
         array_push($experienceInfos, $exp);
     }
 
+    $coursesInfos = [];
+    for ($i = 0; $i < $_POST["coursesGroupNum"]; $i++) {
+        // TODO: Костыль
+        if (!isset($_POST["cg-". $i . "-training"])) {
+            continue;
+        }
+        $cou = new UserCoursesInfo(
+            $_POST["cg-". $i . "-training"],
+            $_POST["cg-". $i . "-organizationCoach"],
+            $_POST["cg-". $i . "-completion"],
+            $_POST["cg-". $i . "-duration"],
+        );
+        array_push($coursesInfos, $cou);
+    }
+
     return new User(
         new UserMainInfo(
             $_POST["firstname"],
             $_POST["lastname"],
             $_POST["patronymic"],
             $imagePath,
+            $_POST["currency"],
             $_POST["salary"],
             $_POST["email"]
         ),
@@ -104,6 +120,7 @@ function createUserModel() :User {
             $_POST["schedule"],
             $_POST["position"],
             $_POST["assignment"],
+            $_POST["phonecode"],
             $_POST["phone"],
             $_POST["city"],
             $_POST["crossing"],
@@ -113,5 +130,11 @@ function createUserModel() :User {
             $_POST["maritalStatus"]),
         $educationInfos,
         $experienceInfos,
+        $coursesInfos,
+        new UserAddonInfo(
+			$_POST["languages"],
+            $_POST["drive"],
+			$_POST["skills"],
+			$_POST["personalQualities"]),
     );
 }

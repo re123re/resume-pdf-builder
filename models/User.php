@@ -7,13 +7,17 @@ class User {
     public $educationInfo;
     // array
     public $experienceInfo;
+    public $coursesInfo;
+    public $addonInfo;
     public $generateDate;
 
-    function __construct($main, $personal, $edu, $exp) {
+    function __construct($main, $personal, $edu, $exp, $cou, $addon) {
         $this->mainInfo = $main;
         $this->personalInfo = $personal;
         $this->educationInfo = $edu;
         $this->experienceInfo = $exp;
+        $this->coursesInfo = $cou;
+        $this->addonInfo = $addon;
     }
 }
 
@@ -22,14 +26,16 @@ class UserMainInfo {
     public $lastname;
     public $patronymic;
     public $imagePath;
+    public $currency;
     public $salary;
     public $email;
 
-    function __construct($firstname, $lastname, $patronymic, $imagePath, $salary, $email) {
+    function __construct($firstname, $lastname, $patronymic, $imagePath, $currency, $salary, $email) {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->patronymic = $patronymic;
         $this->imagePath = $imagePath;
+        $this->currency = $currency;
         $this->salary = $salary;
         $this->email = $email;
     }
@@ -40,6 +46,7 @@ class UserPersonalInfo {
     public $schedule;
     public $position;
     public $assignment;
+    public $phonecode;
     public $phone;
     public $city;
     public $crossing;
@@ -48,11 +55,12 @@ class UserPersonalInfo {
     public $birthdate;
     public $maritalStatus;
 
-    function __construct($employment, $schedule, $position, $assignment, $phone, $city, $crossing, $citizenship, $gender, $birthdate, $maritalStatus) {
+    function __construct($employment, $schedule, $position, $assignment, $phonecode, $phone, $city, $crossing, $citizenship, $gender, $birthdate, $maritalStatus) {
         $this->employment = $employment;
         $this->schedule = $schedule;
         $this->position = $position;
         $this->assignment = $assignment;
+        $this->phonecode = $phonecode;
         $this->phone = $phone;
         $this->city = $city;
         $this->crossing = $crossing;
@@ -92,6 +100,34 @@ class UserExperienceInfo {
         $this->position = $position;
         $this->organization = $organization;
         $this->duties = $duties;
+    }
+}
+
+class UserCoursesInfo {
+    public $training
+    public $organizationCoach
+    public $completion
+    public $duration
+
+    function __construct($training, $organizationCoach, $completion, $duration) {
+        $this->training = $training;
+        $this->organizationCoach = $organizationCoach;
+        $this->completion = $completion;
+        $this->duration = $duration;
+    }
+}
+
+class AddonInfo {
+    public $languages;
+    public $drive;
+    public $skills;
+    public $personalQualities;
+
+    function __construct($languages, $drive, $skills, $personalQualities) {
+        $this->languages = $languages;
+        $this->drive = $drive;
+        $this->skills = $skills;
+        $this->personalQualities = $personalQualities;
     }
 }
 

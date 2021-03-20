@@ -23,6 +23,7 @@ class ResumeBuilder
         // Render main info
         $educationInfoHtml = ResumeBuilder::buildEducationInfo($user->educationInfo);
         $experienceInfoHtml = ResumeBuilder::buildExperienceInfo($user->experienceInfo);
+        $coursesInfoHtml = ResumeBuilder::buildCoursesInfo($user->coursesInfo);
         $html = <<<EOF
 <style>
 p { 
@@ -41,8 +42,8 @@ p {
             <p><b>Занятость: </b>{$user->personalInfo->employment}</p>
             <p><b>График работы: </b>{$user->personalInfo->schedule}</p>
             <p><b>Готовность к командировкам: </b>{$user->personalInfo->assignment}</p>
-            <p><b>Желаемая зарплата: </b>{$user->mainInfo->salary}</p>
-            <p><b>Телефон: </b>{$user->personalInfo->phone}</p>
+            <p><b>Желаемая зарплата: </b>{$user->mainInfo->salary} {$user->mainInfo->currency}</p>
+            <p><b>Телефон: </b>{$user->personalInfo->phonecode} {$user->personalInfo->phone}</p>
             <p><b>Электронная почта: </b>{$user->mainInfo->email}</p>
        </td>
     </tr>
@@ -61,6 +62,15 @@ p {
 
     <h2>Опыт работы</h2>
     {$experienceInfoHtml}
+
+    <h2>Курсы и тренинги</h2>
+    {$coursesInfoHtml}
+
+    <h2>Дополнительная информация</h2>
+    <p><b>Знание иностранных языков: </b>{$user->addonInfo->languages}</p>
+    <p><b>Водительские права (категории): </b>{$user->addonInfo->drive}</p>
+    <p><b>Ключевые навыки: </b>{$user->addonInfo->skills}</p>
+    <p><b>Личные качества: </b>{$user->addonInfo->personalQualities}</p>
 EOF;
         $regions = array(
             array(
@@ -111,6 +121,23 @@ EOF;
 EOF;
 
             if ($i >= 0 && $i < count($experienceInfos) - 1) {
+                $html .= '<hr>';
+            }
+        }
+        return $html;
+    }
+
+    static function buildCoursesInfo($coursesInfos) : string
+    {
+        $html = '';
+        for ($i = 0; $i < count($coursesInfos); $i++) {
+            $html .= <<<EOF
+    <p><b>Название курса: </b>{$coursesInfos[$i]->training}</p>
+    <p><b>Наименование организации: </b>{$coursesInfos[$i]->organizationCoach}</p>
+    <p><b>Год окончания: </b>{$coursesInfos[$i]->completion}</p>
+    <p><b>Продолжительность: </b>{$coursesInfos[$i]->duration}</p>
+EOF;
+            if ($i >= 0 && $i < count($coursesInfos) - 1) {
                 $html .= '<hr>';
             }
         }
