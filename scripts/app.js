@@ -10,6 +10,12 @@ function onExperienceRemoveClick(num) {
     console.log(num);
 }
 
+function onCoursesRemoveClick(num) {
+    // contract
+    $(`.coursesGroup-${num}`).remove();
+    console.log(num);
+}
+
 $(document).ready(function () {
 
 
@@ -62,15 +68,41 @@ $(document).ready(function () {
         $('#experienceGroupNum')[0].value++;
     };
 
+    function onAddCoursesGroup() {
+        const num = $('#coursesGroupNum')[0].value;
+
+        const coursesGroupButton = $('#addCoursesGroup');
+        coursesGroupButton.before(`
+        <div class="coursesGroup-${num}">
+              <hr>
+              <nav class="navbar navbar-expand-md">
+                <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-danger" onclick="onCoursesRemoveClick(${num})">Удалить</button>
+                        </li>
+                    </ul>
+                </div>
+             </nav>
+            <p>Название курса: <input class="form-control" type="text" maxlength="100" name="cg-0-${num}-training" placeholder="Коучинг для HR руководителей"/></p>
+            <p>Наименование организации: <input class="form-control" type="text" maxlength="100" name="cg-0-${num}-organizationCoach" placeholder="Учебный центр им.Боумана"/></p>
+            <p>Год окончания: <input class="form-control" type="text" maxlength="100" name="cg-0-${num}-completion" placeholder="2020"/></p>
+            <p>Продолжительность: <input class="form-control" type="text" maxlength="100" name="cg-0-${num}-duration" placeholder="260 часов"/></p>
+        </div>`);
+        $('#coursesGroupNum')[0].value++;
+    };
+
     function initInputMasks() {
         Inputmask({"mask": "(999) 999-9999"}).mask($("#phone")[0]);
     };
 
     document.getElementById("educationGroupNum").value = 1;
     document.getElementById("experienceGroupNum").value = 1;
+    document.getElementById("coursesGroupNum").value = 1;
 
     document.getElementById("addEducationGroup").onclick = () => onAddEducationGroup();
     document.getElementById("addExperienceGroup").onclick = () => onAddExperienceGroup();
+    document.getElementById("addCoursesGroup").onclick = () => onAddCoursesGroup();
 
     initInputMasks();
 
