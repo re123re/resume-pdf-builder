@@ -19,8 +19,10 @@ class UserInfoLogger
             $personalInfoId = $this->InsertPersonalInfo($db, $user->personalInfo);
             $educationInfoIds = $this->InsertEducationInfos($db, $user->educationInfo);
             $experienceInfoIds = $this->InsertExperienceInfos($db, $user->experienceInfo);
+            $coursesInfoIds = $this->InsertCoursesInfos($db, $user->coursesInfo);
+            $addonInfoId = $this->InsertAddonInfo($db, $user->addonInfo);
 
-            $this->InsertUserInfo($db, $mainInfoId, $personalInfoId, $educationInfoIds, $experienceInfoIds);
+            $this->InsertUserInfo($db, $mainInfoId, $personalInfoId, $educationInfoIds, $experienceInfoIds, $coursesInfoIds, $addonInfoId);
 
             $db->commit();
         } catch (mysqli_sql_exception $exception) {
@@ -52,7 +54,7 @@ values (
 EOF);
         $id = $db->insert_id;
         if(mysqli_affected_rows($mysqli) > 0) {
-           error_log("kek");
+           error_log("Ошибка");
         }
        /* if ($id == 0) {
             error_log($db->error);
@@ -218,7 +220,7 @@ EOF);
         return $id;
     }
 
-    function InsertUserInfo($db, $mainInfoId, $personalInfoId, $educationInfoIds, $experienceInfoIds, $InsertCoursesInfos, $addonInfo) {
+    function InsertUserInfo($db, $mainInfoId, $personalInfoId, $educationInfoIds, $experienceInfoIds, $coursesInfoIds, $addonInfoId) {
         if (count($educationInfoIds) == 0) {
             $educationInfoIds[0] = null;
         }
