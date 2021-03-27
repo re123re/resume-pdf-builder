@@ -100,7 +100,7 @@ function createUserModel() :User {
             $_POST["cg-". $i . "-training"],
             $_POST["cg-". $i . "-organizationCoach"],
             $_POST["cg-". $i . "-completion"],
-            $_POST["cg-". $i . "-duration"],
+            $_POST["cg-". $i . "-duration"]
         );
         array_push($coursesInfos, $cou);
     }
@@ -132,9 +132,9 @@ function createUserModel() :User {
         $experienceInfos,
         $coursesInfos,
         new UserAddonInfo(
-			$_POST["languages"],
+            $_POST["languages"],
             $_POST["drive"],
-			$_POST["skills"],
-			$_POST["personalQualities"]),
+            $_POST["skills"],
+            $_POST["personalQualities"]),
     );
 }

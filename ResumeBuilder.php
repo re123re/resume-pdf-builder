@@ -62,7 +62,7 @@ p {
 
     <h2>Опыт работы</h2>
     {$experienceInfoHtml}
-
+    
     <h2>Курсы и тренинги</h2>
     {$coursesInfoHtml}
 

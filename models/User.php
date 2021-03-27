@@ -104,10 +104,10 @@ class UserExperienceInfo {
 }
 
 class UserCoursesInfo {
-    public $training
-    public $organizationCoach
-    public $completion
-    public $duration
+    public $training;
+    public $organizationCoach;
+    public $completion;
+    public $duration;
 
     function __construct($training, $organizationCoach, $completion, $duration) {
         $this->training = $training;
@@ -117,7 +117,7 @@ class UserCoursesInfo {
     }
 }
 
-class AddonInfo {
+class UserAddonInfo {
     public $languages;
     public $drive;
     public $skills;

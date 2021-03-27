@@ -6,7 +6,6 @@ class UserInfoLogger
     {
         $config = parse_ini_file('config.ini');
         $db = new mysqli($config['host'], $config['username'], $config['password'], $config['database']);
-        error_log($db->connect_error);
         if (!$db) {
             throw new Exception('Ошибка соединения: ' . mysqli_connect_error());
         }
@@ -35,6 +34,12 @@ class UserInfoLogger
     }
 
     function InsertMainInfo($db, $mainInfo) : int {
+        $firstName = mysqli_escape_string($mainInfo->firstname);
+        $lastname = mysqli_escape_string($mainInfo->lastname);
+        $patronymic= mysqli_escape_string($mainInfo->patronymic);
+        $imagePath = mysqli_escape_string($mainInfo->imagePath);
+        $salary = mysqli_escape_string($mainInfo->salary) ?? "";
+        $email = mysqli_escape_string($mainInfo->email) ?? "";
         $db->query(<<<EOF
 insert into main_info (
     firstname,
@@ -54,12 +59,8 @@ values (
 EOF);
         $id = $db->insert_id;
         if(mysqli_affected_rows($mysqli) > 0) {
-           error_log("Ошибка");
+            error_log("Ошибка");
         }
-       /* if ($id == 0) {
-            error_log($db->error);
-            //throw new Exception($db->sqlstate);
-        }*/
 
         return $id;
     }
@@ -172,9 +173,9 @@ EOF);
             $training = mysqli_escape_string($db, $cou->training);
             $organizationCoach = mysqli_escape_string($db, $cou->organizationCoach);
             $completion = mysqli_escape_string($db, $cou->completion);
-			$duration = mysqli_escape_string($db, $cou->duration);
+            $duration = mysqli_escape_string($db, $cou->duration);
             $db->query(<<<EOF
-insert into experience_info (
+insert into courses_info (
     training,
     organizationCoach,
     completion,
@@ -197,8 +198,8 @@ EOF);
         // TODO check 0
         return $coursesInfoIds;
     }
-	
-	function InsertAddonInfo($db, $addonInfo) : int {
+
+    function InsertAddonInfo($db, $addonInfo) : int {
         $db->query(<<<EOF
 insert into addon_info (
     languages,
@@ -233,10 +234,10 @@ EOF);
 
         for ($i = 0; $i < count($educationInfoIds); $i++) {
             for ($j = 0; $j < count($experienceInfoIds); $j++) {
-                for ($j = 0; $j < count($coursesInfoIds); $j++) {
+                for ($k = 0; $k < count($coursesInfoIds); $k++) {
                     $edu = is_null($educationInfoIds[$i]) ? 'null' : $educationInfoIds[$i];
                     $exp = is_null($experienceInfoIds[$j]) ? 'null' : $experienceInfoIds[$j];
-                    $cou = is_null($coursesInfoIds[$j]) ? 'null' : $coursesInfoIds[$j];
+                    $cou = is_null($coursesInfoIds[$k]) ? 'null' : $coursesInfoIds[$k];
                     $db->query(<<<EOF
 insert into user_info (
     main_info_id,
@@ -255,7 +256,8 @@ values (
     {$addonInfoId},
     NOW()
 );
-EOF);
+EOF
+                    );
                     $id = $db->insert_id;
                     if ($id == 0) {
                         throw new Exception($db->error);
