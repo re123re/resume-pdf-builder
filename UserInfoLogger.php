@@ -84,7 +84,7 @@ values (
     '{$personalInfo->schedule}',
     '{$personalInfo->position}',
     '{$personalInfo->assignment}',
-    {$personalInfo->phone},
+    '{$personalInfo->phone}',
     '{$personalInfo->city}',
     '{$personalInfo->crossing}',
     '{$personalInfo->citizenship}',
