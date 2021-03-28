@@ -58,8 +58,8 @@ values (
 );
 EOF);
         $id = $db->insert_id;
-        if(mysqli_affected_rows($mysqli) > 0) {
-            error_log("Ошибка");
+        if ($id == 0 || $db->error !== '') {
+            throw new Exception($db->error);
         }
 
         return $id;
@@ -84,7 +84,7 @@ values (
     '{$personalInfo->schedule}',
     '{$personalInfo->position}',
     '{$personalInfo->assignment}',
-    {$personalInfo->phone},
+    '{$personalInfo->phone}',
     '{$personalInfo->city}',
     '{$personalInfo->crossing}',
     '{$personalInfo->citizenship}',
@@ -94,7 +94,7 @@ values (
 );
 EOF);
         $id = $db->insert_id;
-        if ($id == 0) {
+        if ($id == 0 || $db->error !== '') {
             throw new Exception($db->error);
         }
 
@@ -155,7 +155,7 @@ values (
 );
 EOF);
             $id = $db->insert_id;
-            if ($id == 0) {
+            if ($id == 0 || $db->error !== '') {
                 throw new Exception($db->error);
             }
 
@@ -184,11 +184,11 @@ values (
     '{$training}',
     '{$organizationCoach}',
     '{$completion}',
-    '{$duration}',
+    '{$duration}'
 );
 EOF);
             $id = $db->insert_id;
-            if ($id == 0) {
+            if ($id == 0 || $db->error !== '') {
                 throw new Exception($db->error);
             }
 
@@ -210,18 +210,26 @@ values (
     '{$addonInfo->languages}',
     '{$addonInfo->drive}',
     '{$addonInfo->skills}',
-    '{$addonInfo->personalQualities}',
+    '{$addonInfo->personalQualities}'
 );
 EOF);
         $id = $db->insert_id;
-        if ($id == 0) {
+        if ($id == 0 || $db->error !== '') {
             throw new Exception($db->error);
         }
 
         return $id;
     }
 
-    function InsertUserInfo($db, $mainInfoId, $personalInfoId, $educationInfoIds, $experienceInfoIds, $coursesInfoIds, $addonInfoId) {
+    function InsertUserInfo(
+        $db,
+        $mainInfoId,
+        $personalInfoId,
+        $educationInfoIds,
+        $experienceInfoIds,
+        $coursesInfoIds,
+        $addonInfoId)
+    {
         if (count($educationInfoIds) == 0) {
             $educationInfoIds[0] = null;
         }
@@ -259,7 +267,7 @@ values (
 EOF
                     );
                     $id = $db->insert_id;
-                    if ($id == 0) {
+                    if ($id == 0 || $db->error !== '') {
                         throw new Exception($db->error);
                     }
                 }
