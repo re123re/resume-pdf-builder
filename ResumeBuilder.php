@@ -37,40 +37,40 @@ p {
             <img src="{$user->mainInfo->imagePath}">
        </td>
        <td>
-           {$user->mainInfo->lastname} {$user->mainInfo->firstname} {$user->mainInfo->patronymic}
+           <b>{$user->mainInfo->lastname} {$user->mainInfo->firstname} {$user->mainInfo->patronymic}</b>
             <p><i>{$user->personalInfo->position}</i></p>
-            <p><b>Занятость: </b>{$user->personalInfo->employment}</p>
-            <p><b>График работы: </b>{$user->personalInfo->schedule}</p>
-            <p><b>Готовность к командировкам: </b>{$user->personalInfo->assignment}</p>
-            <p><b>Желаемая зарплата: </b>{$user->mainInfo->salary} {$user->mainInfo->currency}</p>
-            <p><b>Телефон: </b>{$user->personalInfo->phonecode} {$user->personalInfo->phone}</p>
-            <p><b>Электронная почта: </b>{$user->mainInfo->email}</p>
+            <p><span style="color: #757575;"><b>Занятость: </b></span>{$user->personalInfo->employment}</p>
+            <p><span style="color: #757575;"><b>График работы: </b></span>{$user->personalInfo->schedule}</p>
+            <p><span style="color: #757575;"><b>Готовность к командировкам: </b></span>{$user->personalInfo->assignment}</p>
+            <p><span style="color: #757575;"><b>Желаемая зарплата: </b></span>{$user->mainInfo->salary} {$user->mainInfo->currency}</p>
+            <p><span style="color: #757575;"><b>Телефон: </b></span>{$user->personalInfo->phonecode} {$user->personalInfo->phone}</p>
+            <p><span style="color: #757575;"><b>Электронная почта: </b></span>{$user->mainInfo->email}</p>
        </td>
     </tr>
 </table>
-
+    <br>
     <h2>Личная информация</h2>
-    <p><b>Гражданство: </b>{$user->personalInfo->citizenship}</p>
-    <p><b>Город проживания: </b>{$user->personalInfo->city}</p>
-    <p><b>Переезд: </b>{$user->personalInfo->crossing}</p>
-    <p><b>Пол: </b>{$user->personalInfo->gender}</p>
-    <p><b>Дата рождения: </b>{$user->personalInfo->birthdate}</p>
-    <p><b>Семейное положение: </b>{$user->personalInfo->maritalStatus}</p>
-
+    <p><span style="color: #757575;"><b>Гражданство: </b></span>{$user->personalInfo->citizenship}</p>
+    <p><span style="color: #757575;"><b>Город проживания: </b></span>{$user->personalInfo->city}</p>
+    <p><span style="color: #757575;"><b>Переезд: </b></span>{$user->personalInfo->crossing}</p>
+    <p><span style="color: #757575;"><b>Пол: </b></span>{$user->personalInfo->gender}</p>
+    <p><span style="color: #757575;"><b>Дата рождения: </b></span>{$user->personalInfo->birthdate}</p>
+    <p><span style="color: #757575;"><b>Семейное положение: </b></span>{$user->personalInfo->maritalStatus}</p>
+    <br>
     <h2>Образование</h2>
     {$educationInfoHtml}
-
+    <br>
     <h2>Опыт работы</h2>
     {$experienceInfoHtml}
-    
+    <br>  
     <h2>Курсы и тренинги</h2>
     {$coursesInfoHtml}
-
+    <br>
     <h2>Дополнительная информация</h2>
-    <p><b>Знание иностранных языков: </b>{$user->addonInfo->languages}</p>
-    <p><b>Водительские права (категории): </b>{$user->addonInfo->drive}</p>
-    <p><b>Ключевые навыки: </b>{$user->addonInfo->skills}</p>
-    <p><b>Личные качества: </b>{$user->addonInfo->personalQualities}</p>
+    <p><span style="color: #757575;"><b>Знание иностранных языков: </b></span>{$user->addonInfo->languages}</p>
+    <p><span style="color: #757575;"><b>Водительские права (категории): </b></span>{$user->addonInfo->drive}</p>
+    <p><span style="color: #757575;"><b>Ключевые навыки: </b></span>{$user->addonInfo->skills}</p>
+    <p><span style="color: #757575;"><b>Личные качества: </b></span>{$user->addonInfo->personalQualities}</p>
 EOF;
         $regions = array(
             array(
@@ -94,11 +94,11 @@ EOF;
         $html = '';
         for ($i = 0; $i < count($educationInfos); $i++) {
             $html .= <<<EOF
-    <p><b>Учебное заведение: </b>{$educationInfos[$i]->institute}</p>
-    <p><b>Факультет: </b>{$educationInfos[$i]->faculty}</p>
-    <p><b>Специальность: </b>{$educationInfos[$i]->speciality}</p>
-    <p><b>Год начала: </b>{$educationInfos[$i]->dateFrom}</p>
-    <p><b>Год окончания: </b>{$educationInfos[$i]->dateTo}</p>
+    <p><span style="color: #757575;"><b>Учебное заведение: </b></span>{$educationInfos[$i]->institute}</p>
+    <p><span style="color: #757575;"><b>Факультет: </b></span>{$educationInfos[$i]->faculty}</p>
+    <p><span style="color: #757575;"><b>Специальность: </b></span>{$educationInfos[$i]->speciality}</p>
+    <p><span style="color: #757575;"><b>Год начала: </b></span>{$educationInfos[$i]->dateFrom}</p>
+    <p><span style="color: #757575;"><b>Год окончания: </b></span>{$educationInfos[$i]->dateTo}</p>
 EOF;
             if ($i >= 0 && $i < count($educationInfos) - 1) {
                 $html .= '<hr>';
@@ -114,10 +114,10 @@ EOF;
         for ($i = 0; $i < count($experienceInfos); $i++) {
             $duties = nl2br($experienceInfos[$i]->duties);
             $html .= <<<EOF
-    <p><b>Период: </b>с {$experienceInfos[$i]->dateFrom} по {$experienceInfos[$i]->dateTo}</p>
-    <p><b>Должность: </b>{$experienceInfos[$i]->position}</p>
-    <p><b>Организация: </b>{$experienceInfos[$i]->organization}</p>
-    <p><b>Должностные обязанности и достижения: </b><br />{$duties}</p>
+    <p><span style="color: #757575;"><b>Период: </b></span>с {$experienceInfos[$i]->dateFrom} по {$experienceInfos[$i]->dateTo}</p>
+    <p><span style="color: #757575;"><b>Должность: </b></span>{$experienceInfos[$i]->position}</p>
+    <p><span style="color: #757575;"><b>Организация: </b></span>{$experienceInfos[$i]->organization}</p>
+    <p><span style="color: #757575;"><b>Должностные обязанности и достижения: </b></span><br />{$duties}</p>
 EOF;
 
             if ($i >= 0 && $i < count($experienceInfos) - 1) {
@@ -132,10 +132,10 @@ EOF;
         $html = '';
         for ($i = 0; $i < count($coursesInfos); $i++) {
             $html .= <<<EOF
-    <p><b>Название курса: </b>{$coursesInfos[$i]->training}</p>
-    <p><b>Наименование организации: </b>{$coursesInfos[$i]->organizationCoach}</p>
-    <p><b>Год окончания: </b>{$coursesInfos[$i]->completion}</p>
-    <p><b>Продолжительность: </b>{$coursesInfos[$i]->duration}</p>
+    <p><span style="color: #757575;"><b>Название курса: </b></span>{$coursesInfos[$i]->training}</p>
+    <p><span style="color: #757575;"><b>Наименование организации: </b></span>{$coursesInfos[$i]->organizationCoach}</p>
+    <p><span style="color: #757575;"><b>Год окончания: </b></span>{$coursesInfos[$i]->completion}</p>
+    <p><span style="color: #757575;"><b>Продолжительность: </b></span>{$coursesInfos[$i]->duration}</p>
 EOF;
             if ($i >= 0 && $i < count($coursesInfos) - 1) {
                 $html .= '<hr>';
