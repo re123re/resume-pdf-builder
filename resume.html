@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тестовая страница</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="vendor/components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="vendor/robinherbots/jquery.inputmask/dist/inputmask.min.js"></script>
+    <script type="text/javascript" src="vendor/twbs/bootstrap/min/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="node_modules/croppie/croppie.min.js"></script>
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/min/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/croppie/croppie.css"/>
+    <link rel="stylesheet" href="styles/app.css"/>
+    <script type="text/javascript" src="scripts/app.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <form action="display.php" method="POST" enctype="multipart/form-data">
+        <!-- MAIN INFO -->
+        <div class="card" id="mainInfo">
+            <div class="card-body">
+                <h5 class="card-title">Основная информация</h5>
+                <div class="row">
+                    <div class="col-3">
+                        <img id="photo" class="user-photo" src="resources/profile.jpg"/>
+                        <input type="hidden" name="photo" class="user-photo-input"/>
+
+                        <!-- Button trigger modal -->
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary select-photo" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                Выбрать фото
+                            </button>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="upload-demo-wrap">
+                                            <div class="upload-demo"></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="upload" type="file" accept="image/jpeg"/>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть
+                                        </button>
+                                        <button type="button" class="btn btn-primary apply" data-dismiss="modal">
+                                            Сохранить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label for="firstname">Имя</label>
+                        <input class="form-control" type="text" id="firstname" name="firstname" maxlength="20" required/>
+                        <p>Фамилия: <input class="form-control" type="text" name="lastname" maxlength="20" required/>
+                        </p>
+                        <p>Отчество: <input class="form-control" type="text" name="patronymic" maxlength="20" required/>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-8">
+                    <label for="salary">Желаемая зарплата</label>
+                        <input class="form-control" type="text" id="salary" name="salary" maxlength="20" placeholder="100000"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="currency">&nbsp;</label>
+                        <select class="form-control" id="currency" name="currency" selected="рублей" required>
+                            <option>рублей</option>
+                            <option>долларов</option>
+                            <option>евро</option>
+                        </select>
+                    </div>
+                </div>
+
+                <p>Электронная почта: <input class="form-control" type="email" type="text" name="email" maxlength="40"
+                                             placeholder="name@example.com"/></p>
+                <p>Занятость:
+                    <select class="form-control" name="employment" selected="1" required>
+                        <option>Выбор..</option>
+                        <option selected>Полная</option>
+                        <option>Частичная</option>
+                        <option>Проектная</option>
+                        <option>Стажировка</option>
+                        <option>Волонтерство</option>
+                    </select>
+                </p>
+                <p>График работы:
+                    <select class="form-control" name="schedule" selected="Полный день" required>
+                        <option>Выбор..</option>
+                        <option selected>Полный день</option>
+                        <option>Сменный график</option>
+                        <option>Гибкий график</option>
+                        <option>Удаленная работа</option>
+                        <option>Вахтовый метод</option>
+                    </select>
+                </p>
+                <p>Должность: <input class="form-control" type="text" name="position" placeholder="Механик"
+                                     maxlength="50" required/></p>
+                <p>Готовность к командировкам:
+                    <select class="form-control" name="assignment" selected="Готов" required>
+                        <option>Выбор...</option>
+                        <option selected>Готов</option>
+                        <option>Не готов</option>
+                    </select>
+                </p>
+                <label for="phone">Телефон</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <!--<span class="input-group-text" id="validationTooltipUsernamePrepend">+7</span>-->
+                        <select class="form-control" id="phonecode" name="phonecode" selected="+7" required>
+                            <option><img src="/icons/ru.png" class="rounded float-left" alt="ru">+7</option>
+                            <option>+77</option>
+                            <option>+380</option>
+                            <option>+375</option>
+                        </select>
+                    </div>
+                    <input class="form-control" type="text" id="phone" name="phone" placeholder="(999) 99-99-99"
+                           required/>
+                    <div class="invalid-tooltip">
+                        Please choose a unique and valid username.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MAIN INFO -->
+
+        <!-- PERSONAL INFO -->
+        <div class="card" id="personalInfo">
+            <div class="card-body">
+                <h5 class="card-title">Личная информация</h5>
+                <p>Город проживания: <input class="form-control" type="text" name="city" maxlength="50" value="Москва"/>
+                </p>
+                <p>Переезд:
+                    <select class="form-control" name="crossing" selected="Возможен">
+                        <option>Выбор..</option>
+                        <option selected>Невозможен</option>
+                        <option>Возможен</option>
+                        <option>Нежелателен</option>
+                        <option>Желателен</option>
+                    </select>
+                </p>
+                <p>Гражданство: <input class="form-control" type="text" maxlength="50" name="citizenship"
+                                       value="Российская Федерация"/>
+                </p>
+                <p>Пол:
+                    <select class="form-control" name="gender" selected="Мужской">
+                        <option>Выбор..</option>
+                        <option selected>Мужской</option>
+                        <option>Женский</option>
+                    </select>
+                </p>
+                <p>Дата рождения: <input class="form-control" type="date" name="birthdate" value="01.01.1985"/></p>
+                <p>Семейное положение:
+                    <select class="form-control" name="maritalStatus" selected="Не женат/Не замужем">
+                        <option>Выбор..</option>
+                        <option selected>Не женат/Не замужем</option>
+                        <option>Женат/Замужем</option>
+                    </select>
+                </p>
+            </div>
+        </div>
+        <!-- PERSONAL INFO -->
+
+        <!-- EDUCATION INFO -->
+        <div class="card" id="educationInfo">
+            <div class="card-body">
+                <h5 class="card-title">Образование</h5>
+                <div class="educationGroup-0">
+
+                    <p>Учебное заведение: <input class="form-control" type="text" maxlength="100" name="eg-0-institute"
+                                                 placeholder="МГУ"/>
+                    </p>
+                    <p>Факультет: <input class="form-control" type="text" maxlength="100" name="eg-0-faculty"
+                                         placeholder="Информационных технологий"/></p>
+                    <p>Специальность: <input class="form-control" type="text" maxlength="100" name="eg-0-speciality"
+                                             placeholder="Монтаж слаботочных систем"/></p>
+                    <p>Дата начала: <input class="form-control" type="number" name="eg-0-dateFrom" placeholder="2004"
+                                           maxlength="4"/></p>
+                    <p>Дата окончания: <input class="form-control" type="number" name="eg-0-dateTo" placeholder="2009"
+                                              maxlength="4"/></p>
+                </div>
+                <button class="btn btn-secondary" type="button" id="addEducationGroup">Добавить учебное заведение
+                </button>
+                <input type="hidden" value="1" id="educationGroupNum" name="educationGroupNum"/>
+            </div>
+        </div>
+        <!-- EDUCATION INFO -->
+
+        <!-- EXPERIENCE INFO -->
+        <div class="card" id="experienceInfo">
+            <div class="card-body">
+                <h5 class="card-title">Опыт работы</h5>
+                <div class="experienceGroup-0">
+                    <p>Период работы: <input class="form-control" type="date" name="xg-0-dateFrom" placeholder="2010"/> по
+                        <input class="form-control dateTo" type="date" name="xg-0-dateTo" placeholder="2015"/></p>
+                    <div class="form-check">
+                        <input type="checkbox" name="xg-0-currentTime" id="currentTime" class="form-check-input currentTime" onclick="onCheckCurrentTime()">
+                        <label class="form-check-label" for="currentTime">По настоящее время</label>
+                    </div>
+                    <br>
+                    <p>Должность: <input class="form-control" type="text" maxlength="50" name="xg-0-position"
+                                         placeholder="Инженер"/></p>
+                    <p>Организация: <input class="form-control" type="text" maxlength="100" name="xg-0-organization"
+                                           placeholder="АО 'Промсвязьтоп'"/>
+                    </p>
+                    <p>Должностные обязанности и достижения: <textarea class="form-control" maxlength="400" type="text"
+                                                                       name="xg-0-duties"
+                                                                       value=""></textarea></p>
+                </div>
+                <button class="btn btn-secondary" type="button" id="addExperienceGroup">Добавить место работы</button>
+                <input type="hidden" value="1" id="experienceGroupNum" name="experienceGroupNum"/>
+            </div>
+        </div>
+        <!-- EXPERIENCE INFO -->
+
+        <!-- COURSES INFO -->
+        <div class="card" id="coursesInfo">
+            <div class="card-body">
+                <h5 class="card-title">Курсы и тренинги</h5>
+                <div class="coursesGroup-0">
+                    <p>Название курса: <input class="form-control" type="text" maxlength="100" name="cg-0-training"
+                                              placeholder="Коучинг для HR руководителей"/>
+                    </p>
+                    <p>Наименование организации: <input class="form-control" type="text" maxlength="100" name="cg-0-organizationCoach"
+                                                        placeholder="Учебный центр им.Боумана"/>
+                    </p>
+                    <p>Год окончания: <input class="form-control" type="text" maxlength="100" name="cg-0-completion"
+                                             placeholder="2020"/>
+                    </p>
+                    <p>Продолжительность: <input class="form-control" type="text" maxlength="100" name="cg-0-duration"
+                                                 placeholder="260 часов"/>
+                    </p>
+                </div>
+                <button class="btn btn-secondary" type="button" id="addCoursesGroup">Добавить курсы</button>
+                <input type="hidden" value="1" id="coursesGroupNum" name="coursesGroupNum"/>
+            </div>
+        </div>
+        <!-- COURSES INFO -->
+
+        <!-- ADDON INFO -->
+        <div class="card" id="addonInfo">
+            <div class="card-body">
+                <h5 class="card-title">Дополнительная информация</h5>
+                <p>Знание иностранных языков: <input class="form-control" type="text" name="languages" maxlength="50" placeholder="Английский — C1 — Продвинутый"/>
+                </p>
+                <p>Водительские права (категории):
+                <section class="border p-3">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="A"/>A<br />
+                        </label>
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="B"/>B<br />
+                        </label>
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="BE"/>BE<br />
+                        </label>
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="C"/>C<br />
+                        </label>
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="CE"/>CE<br />
+                        </label>
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="D"/>D<br />
+                        </label>
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="DE"/>DE<br />
+                        </label>
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="M"/>M<br />
+                        </label>
+                        <label class="btn btn-outline-primary waves-effect">
+                            <input type="checkbox" name="drive[]" value="TB и TM"/>TB и TM<br />
+                        </label>
+                    </div>
+                </section>
+                </p>
+                <p>Ключевые навыки: <input class="form-control" type="text" maxlength="50" name="skills"
+                                           placeholder="MS Excel, MS Word, 1С: Бухгалтерия"/></p>
+                <p>Личные качества: <textarea class="form-control" type="text" maxlength="50" name="personalQualities"
+                                              value="Ответственность, стрессоустойчивость, целеустремленность, быстрая обучаемость, пунктуальность, аккуратность, внимательность, умение работать в команде, инициативность, доброжелательность, креативность, общительность"></textarea></p>
+            </div>
+        </div>
+        <!-- ADDON INFO -->
+        <p><input class="btn btn-primary" type="submit" value="Составить резюме"/></p>
+    </form>
+</div>
+</body>
+</html>
